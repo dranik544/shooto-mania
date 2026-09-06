@@ -3,6 +3,7 @@ extends Node
 
 var bulletScenes: Dictionary = {
 	"base_bullet": preload("res://scenes/bullets/base_bullet.tscn"),
+	"bullet_dick": preload("res://scenes/bullets/bullet_dick.tscn"),
 }
 var bulletPool: Dictionary = {}
 var defaultPoolBulletSize: int = 20
@@ -10,6 +11,7 @@ var defaultPoolBulletSize: int = 20
 
 func _ready():
 	add_type_bullets_to_pool("base_bullet")
+	add_type_bullets_to_pool("bullet_dick")
 
 
 func add_type_bullets_to_pool(type: String):

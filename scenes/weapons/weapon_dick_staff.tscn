@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/weapons/base_weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/weapons/weapon_dick_staff.png" type="Texture" id=2]
+
+[node name="weapon_dick_staff" instance=ExtResource( 1 )]
+type = "weapon_dick_staff"
+bulletType = "bullet_dick"
+texture = ExtResource( 2 )
+reloadTime = 0.7
+recoilForce = 2.0

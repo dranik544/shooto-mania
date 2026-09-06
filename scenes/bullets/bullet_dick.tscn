@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/bullets/base_bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/bullets/bullet_dick.png" type="Texture" id=2]
+
+[node name="bullet_dick" instance=ExtResource( 1 )]
+type = "bullet_dick"
+texture = ExtResource( 2 )
