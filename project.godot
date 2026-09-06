@@ -12,7 +12,10 @@ config_version=4
 
 config/name="ShootoMania"
 run/main_scene="res://scenes/main.tscn"
-config/icon="res://icon.png"
+boot_splash/image="res://sprites/player/player1.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://sprites/player/player1.png"
 
 [autoload]
 
