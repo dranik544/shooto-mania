@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/weapons/base_weapon.gd" type="Script" id=1]
+[ext_resource path="res://sprites/weapons/weapon1.png" type="Texture" id=2]
+
+[node name="base_weapon" type="Node2D"]
+script = ExtResource( 1 )
+type = "base_weapon"
+bulletType = "base_bullet"
+texture = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
