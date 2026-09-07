@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://sprites/player/player3.png" type="Texture" id=1]
 [ext_resource path="res://scenes/player.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/weapons/weaponManager.gd" type="Script" id=5]
 [ext_resource path="res://scenes/weapons/base_weapon.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Camera2D.gd" type="Script" id=7]
+[ext_resource path="res://scenes/weapons/weapon_shotgun.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 3.75, 3.75 )
@@ -39,3 +40,5 @@ script = ExtResource( 5 )
 [node name="base_weapon" parent="weaponManager" instance=ExtResource( 6 )]
 
 [node name="weapon_dick_staff" parent="weaponManager" instance=ExtResource( 4 )]
+
+[node name="weapon_shotgun" parent="weaponManager" instance=ExtResource( 8 )]

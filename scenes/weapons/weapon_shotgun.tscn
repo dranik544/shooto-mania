@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/weapons/shotgun.png" type="Texture" id=1]
+[ext_resource path="res://scenes/weapons/base_weapon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/weapons/weapon_shotgun.gd" type="Script" id=3]
+
+[node name="weapon_shotgun" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+type = "weapon_shotgun"
+bulletType = "bullet_shotgun"
+texture = ExtResource( 1 )
+reloadTime = 2.0
+recoilForce = 4.0
