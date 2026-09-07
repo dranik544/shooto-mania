@@ -20,6 +20,7 @@ config/icon="res://sprites/player/player1.png"
 [autoload]
 
 Global="*res://global.gd"
+Network="*res://network.gd"
 
 [display]
 

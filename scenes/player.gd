@@ -19,10 +19,10 @@ var dead: bool = false
 
 
 func _process(delta):
-	if abs(velocity.y) > 5.0:
-		sprite.rotation += abs(velocity.y * 0.001)
+	if !is_on_floor():
+		sprite.rotation_degrees += (velocity.y if velocity.x < 0 else -velocity.y) * 2 * delta
 	else:
-		sprite.rotation = lerp(rotation, 0.0, 5 * delta)
+		sprite.rotation_degrees = lerp(sprite.rotation_degrees, 0, 20 * delta)
 
 func _physics_process(delta: float) -> void:
 	var input_direction: float = 0.0
@@ -48,7 +48,6 @@ func _physics_process(delta: float) -> void:
 		),
 		1.0, 5.0
 	)
-	print(moveSpeedMod)
 	
 	velocity = move_and_slide(velocity, Vector2.UP)
 

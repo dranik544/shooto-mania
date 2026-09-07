@@ -1,0 +1,2 @@
+# Network.gd
+extends Node
