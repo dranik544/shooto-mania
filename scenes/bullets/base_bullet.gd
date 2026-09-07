@@ -11,6 +11,7 @@ export(float) var speed = 40.0
 export(StreamTexture) var texture
 export(float) var lifeTime = 5.0
 export(float) var recoilForce = 0.0
+export(float) var damage = 10.0
 
 var status: bool = true
 
@@ -32,6 +33,7 @@ func _bullet_process():
 
 func _on_body_entered(body: Node2D):
 	if !status: return
+	_action_to_body(body)
 	_after_body_entered()
 
 func _on_timer_timeout():
@@ -44,11 +46,15 @@ func _after_body_entered():
 	disable()
 	Global.add_bullet_to_pool(self)
 
+func _action_to_body(body: Node2D):
+	if body.has_method("change_health"): body.change_health(-damage)
+
 func activate():
 	status = true
 	timer.start()
 	set_physics_process(true)
 	show()
+	rotate(rand_range(0.0, 1.0))
 
 func disable():
 	status = false

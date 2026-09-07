@@ -3,6 +3,7 @@ extends Node2D
 
 onready var sprite = $Sprite
 onready var timer = $Timer
+onready var player = get_parent().get_parent()
 
 export(String) var type
 export(String) var bulletType
@@ -30,17 +31,25 @@ func _on_timer_timeout():
 
 
 func fire():
-	if canFire:
+	if canFire && !player.dead:
 		var bullet = Global.take_bullet_from_pool(bulletType)
 		
 		var direction: Vector2 = get_global_mouse_position() - global_position
 		bullet.global_position = global_position + Vector2(8.0, 0.0).rotated(rotation)
 		bullet.direction = direction.normalized()
-		bullet.player = get_parent()
+		bullet.player = player
 		
 		bullet.activate()
 		
-		if get_parent(): get_parent().apply_recoil(-direction * recoilForce)
+		if player: player.apply_recoil(-direction * recoilForce)
 		
 		canFire = false
 		timer.start()
+
+func activate():
+	set_physics_process(true)
+	show()
+
+func disable():
+	set_physics_process(false)
+	hide()

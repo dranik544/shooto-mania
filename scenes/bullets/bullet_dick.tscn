@@ -5,4 +5,6 @@
 
 [node name="bullet_dick" instance=ExtResource( 1 )]
 type = "bullet_dick"
+speed = 3.0
 texture = ExtResource( 2 )
+damage = 15.0
