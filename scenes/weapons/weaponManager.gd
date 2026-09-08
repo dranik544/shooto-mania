@@ -11,6 +11,8 @@ func _ready():
 	apply_weapon(weapons[currentWeapon])
 
 func _input(event):
+	if !is_network_master(): return
+	
 	if event.is_action_pressed("PREV SELECT WEAPON") || event.is_action_pressed("NEXT SELECT WEAPON"):
 		if event.is_action_pressed("PREV SELECT WEAPON"): currentWeapon -= 1
 		if event.is_action_pressed("NEXT SELECT WEAPON"): currentWeapon += 1
@@ -19,7 +21,12 @@ func _input(event):
 		if currentWeapon > weapons.size()-1: currentWeapon = 0
 		
 		apply_weapon(weapons[currentWeapon])
+		rpc("sync_weapon", currentWeapon)
 
 func apply_weapon(weapon):
 	for i in weapons: i.disable()
 	weapon.activate()
+
+remote func sync_weapon(sCurrentWeapon: int):
+	for i in weapons: i.disable()
+	weapons[sCurrentWeapon].activate()

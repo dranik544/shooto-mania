@@ -1,4 +1,3 @@
-# bullet.gd
 extends Area2D
 
 onready var sprite = $Sprite
@@ -15,39 +14,20 @@ export(float) var damage = 10.0
 
 var status: bool = true
 
-
 func _ready():
-	if sprite.texture == null && texture != null: sprite.texture = texture
+	if sprite.texture == null && texture != null:
+		sprite.texture = texture
 	timer.wait_time = lifeTime
-	
 	connect("body_entered", self, "_on_body_entered")
 	timer.connect("timeout", self, "_on_timer_timeout")
-	
-	activate()
+	disable()
 
 func _physics_process(delta):
-	_bullet_process()
-
-func _bullet_process():
-	global_position += direction * speed
-
-func _on_body_entered(body: Node2D):
+	if !is_network_master(): return
 	if !status: return
-	_action_to_body(body)
-	_after_body_entered()
-
-func _on_timer_timeout():
-	disable()
-	Global.add_bullet_to_pool(self)
-
-
-func _after_body_entered():
-	if player: player.apply_recoil(-direction * recoilForce)
-	disable()
-	Global.add_bullet_to_pool(self)
-
-func _action_to_body(body: Node2D):
-	if body.has_method("change_health"): body.change_health(-damage)
+	global_position += direction * speed
+	if get_tree().network_peer and get_tree().network_peer.get_connection_status() == NetworkedMultiplayerENet.CONNECTION_CONNECTED:
+		rpc_unreliable("sync_global_position", global_position)
 
 func activate():
 	status = true
@@ -62,3 +42,28 @@ func disable():
 	set_physics_process(false)
 	global_position = Vector2(-10000.0, -10000.0)
 	hide()
+
+func _on_body_entered(body: Node2D):
+	if not is_network_master():
+		return
+	if !status: return
+	if body.has_method("change_health"):
+		body.change_health(-damage)
+	if player:
+		player.apply_recoil(-direction * recoilForce)
+	rpc("remove_bullet")
+	disable()
+	Global.add_bullet_to_pool(self)
+
+func _on_timer_timeout():
+	if is_network_master():
+		rpc("remove_bullet")
+	disable()
+	Global.add_bullet_to_pool(self)
+
+remote func remove_bullet():
+	disable()
+	Global.add_bullet_to_pool(self)
+
+remote func sync_global_position(sPosition):
+	global_position = sPosition
