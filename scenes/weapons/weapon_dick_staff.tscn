@@ -8,4 +8,4 @@ type = "weapon_dick_staff"
 bulletType = "bullet_dick"
 texture = ExtResource( 2 )
 reloadTime = 1.0
-recoilForce = 0.5
+recoilForce = 1.25

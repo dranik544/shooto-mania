@@ -7,6 +7,8 @@ var myNickname: String = ""
 var inGame: bool = false
 
 func _ready():
+	randomize()
+	
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_on_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_on_connected_to_server")
@@ -69,14 +71,8 @@ remote func spawn_player(id):
 	var player = playerScene.instance()
 	player.name = str(id)
 	get_tree().current_scene.add_child(player)
-	for i in get_tree().get_nodes_in_group("player"):
-		randomize()
-		i.apply_skin(randi() % Global.allSkins.size())
 	player.set_network_master(id)
-	var spawns = get_tree().get_nodes_in_group("spawn_point")
-	if spawns.size() > 0:
-		var spawn = spawns[randi() % spawns.size()]
-		player.global_position = spawn.global_position
+	player.global_position = get_tree().get_first_node_in_group("spawn point").take_random_spawn_point().global_position
 
 # Внутренняя функция для создания игрока только на хосте (локально)
 func _spawn_player_local(id):
@@ -87,14 +83,8 @@ func _spawn_player_local(id):
 	var player = playerScene.instance()
 	player.name = str(id)
 	get_tree().current_scene.add_child(player)
-	for i in get_tree().get_nodes_in_group("player"):
-		randomize()
-		i.apply_skin(randi() % Global.allSkins.size())
 	player.set_network_master(id)
-	var spawns = get_tree().get_nodes_in_group("spawn_point")
-	if spawns.size() > 0:
-		var spawn = spawns[randi() % spawns.size()]
-		player.global_position = spawn.global_position
+	player.global_position = get_tree().get_first_node_in_group("spawn point").take_random_spawn_point().global_position
 
 func _on_player_connected(id):
 	pass

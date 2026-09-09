@@ -10,4 +10,4 @@ type = "weapon_shotgun"
 bulletType = "bullet_shotgun"
 texture = ExtResource( 1 )
 reloadTime = 2.0
-recoilForce = 4.5
+recoilForce = 4.0

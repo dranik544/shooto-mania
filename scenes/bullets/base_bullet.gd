@@ -44,13 +44,13 @@ func disable():
 	hide()
 
 func _on_body_entered(body: Node2D):
-	if not is_network_master():
-		return
+	if !is_network_master(): return
 	if !status: return
+	
 	if body.has_method("change_health"):
 		body.change_health(-damage)
-	if player:
-		player.apply_recoil(-direction * recoilForce)
+	if body.has_method("apply_recoil"):
+		body.apply_recoil(-direction * recoilForce)
 	rpc("remove_bullet")
 	disable()
 	Global.add_bullet_to_pool(self)

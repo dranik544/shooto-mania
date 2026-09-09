@@ -1,7 +1,7 @@
 # global.gd
 extends Node
 
-var ver: String = "ver1t5"
+var ver: String = "ver1t6"
 
 
 var bulletScenes: Dictionary = {
