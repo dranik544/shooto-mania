@@ -87,7 +87,7 @@ func _spawn_player_local(id):
 	player.global_position = get_tree().get_first_node_in_group("spawn point").take_random_spawn_point().global_position
 
 func _on_player_connected(id):
-	pass
+	rpc_id(id, "start_game")
 
 func _on_player_disconnected(id):
 	if not get_tree().is_network_server():
